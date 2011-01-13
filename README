@@ -1,0 +1,33 @@
+Short-term Objectives:
+
+- A client game with some heroes, items and one basic map.
+- A Graphical Map Editor.
+- A Console Item Editor.
+- A Console Hero (and creep) Editor.
+
+Middle-term Objectives:
+
+- LAN and IP connection Modes.
+- Online Mode with a basic gateway. A basic rating and matchmaking system.
+- A Graphical Item Editor.
+- A Graphical Hero Editor.
+- A more detailed Map Editor with different palettes of tiles and elements.
+- Basic Tutorial
+- A detailed main map with brush, neutral monster, etc.
+
+Long-term Objectives:
+
+- A more complex gateway for online mode. Including private and public chat, friends, ignore, ladder, etc.
+- Mod Support.
+- A decent amount of Maps and heroes.
+- An unlock system for heroes.
+- Skin Support.
+- A User metagame (as in LoL with runes, masteries, etc.)
+- AutoUpdate Client.
+
+Super Long-term Objectives:
+
+- A 3D port with Panda3d
+- Replay Support
+- "check integration" and "anti-hack" for the client in online mode.
+- 1 Player Mode and Campaign
