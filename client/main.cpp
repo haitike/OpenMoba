@@ -95,7 +95,7 @@ int main( int argc, char* args[] )
     }
 
     //Load the image
-    image = load_image( "look.png" );
+    image = load_image( "img/tower.png" );
 
     //If there was a problem in loading the image
     if( image == NULL )
