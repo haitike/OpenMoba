@@ -36,9 +36,12 @@
 			<Add option="`sdl-config --libs` -lSDL_image" />
 		</Linker>
 		<Unit filename="main.cpp" />
+		<Unit filename="tools.cpp" />
+		<Unit filename="tools.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

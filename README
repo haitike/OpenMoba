@@ -1,7 +1,7 @@
 Short-term Objectives:
 
 - A client game with some heroes, items and one basic map.
-- A Graphical Map Editor.
+- A Interpreter of tiled-qt maps: http://www.mapeditor.org/
 - A Console Item Editor.
 - A Console Hero (and creep) Editor.
 
@@ -9,6 +9,7 @@ Middle-term Objectives:
 
 - LAN and IP connection Modes.
 - Online Mode with a basic gateway. A basic rating and matchmaking system.
+- An Internal Map Editor.
 - A Graphical Item Editor.
 - A Graphical Hero Editor.
 - A more detailed Map Editor with different palettes of tiles and elements.
