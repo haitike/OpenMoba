@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_workspace_file>
-	<Workspace title="OpenMoba">
-		<Project filename="client/client.cbp" active="1" />
-		<Project filename="map_editor/map_editor.cbp" />
-		<Project filename="hero_editor/hero_editor.cbp" />
-		<Project filename="item_editor/item_editor.cbp" />
-	</Workspace>
-</CodeBlocks_workspace_file>
