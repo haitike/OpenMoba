@@ -3,7 +3,7 @@
 
 # Modules
 import random, os, pygame
-import language # Internalization
+import language # Internalization File (language.py)
 from pygame.locals import *
 
 # Constants
@@ -11,17 +11,30 @@ SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
 DATA = "data"
 
-# Class
+# Classes
 class Champion(pygame.sprite.Sprite):
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image("champion.png", True)
         self.rect.center = (SCREEN_WIDTH/2,SCREEN_HEIGHT)
+        self.cursor = self.rect.center
         self.x_velocity = 0
         self.y_velocity = 0
 
-    def update(self):
+    def update(self):        
+        # Movement Command Directions (Right Click with mouse)
+        # self.cursor[0] = position x on click 
+        # self.cursor[1] = position y on click
+        if self.rect.centerx > self.cursor[0]: self.x_velocity = -1
+        elif self.rect.centerx < self.cursor[0]: self.x_velocity = 1
+        else: self.x_velocity = 0
+    
+        if self.rect.centery > self.cursor[1]: self.y_velocity = -1
+        elif self.rect.centery < self.cursor[1]: self.y_velocity = 1
+        else: self.y_velocity = 0    
+        
+        # Movement
         self.rect.move_ip((self.x_velocity, self.y_velocity))
 
         # Limits
@@ -33,35 +46,16 @@ class Champion(pygame.sprite.Sprite):
             self.rect.top = 0
         elif self.rect.bottom >= SCREEN_HEIGHT:
             self.rect.bottom = SCREEN_HEIGHT
-            
- 
-class Minion( pygame.sprite.Sprite ):
 
-    def __init__(self, startx):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image("champion.png", True)
-        self.rect.centerx = startx
-        self.rect.centery = -50
-        self.x_velocity = random.randint(-3+puntos/250, 3+puntos/250)
-        self.y_velocity = random.randint(-3+puntos/250, 3+puntos/250)
+    def attack(self, attacks, sprites):
+        for i in range(attacks):
+            if attacks >= 2: # If more than 1 proyectiles per attack
+                sprites.add(ChampionAttack(self.rect.centerx -attacks*6 + 15*i, self.rect.centery -30))
+            else:
+                sprites.add(ChampionAttack(self.rect.centerx, self.rect.centery -30))
         
-    def update( self):
-        self.rect.move_ip((self.x_velocity, self.y_velocity))
-
-        # Movements
-        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
-            self.x_velocity = -(self.x_velocity)
-        if self.rect.top < -80 or self.rect.bottom > SCREEN_HEIGHT/2:
-            self.y_velocity = -(self.y_velocity)
-
-        #Random Attacks
-        if puntos < 600:  
-                fire  = random.randint(1, 120 - (puntos/10))
-        else : 
-            fire = random.randint(1, 20)
-        if fire == 1:
-            minionAttackSprites.add(minionAttack(self.rect.midbottom))
-            minionShotFX.play()
+    def getCursor(self,mouse):
+        self.cursor = mouse    
 
 class ChampionAttack(pygame.sprite.Sprite):
     
@@ -78,22 +72,12 @@ class ChampionAttack(pygame.sprite.Sprite):
         else:
             self.rect.move_ip((0,-6))
             
-class MinionAttack(pygame.sprite.Sprite):
-    
-    def __init__(self, startpos):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image("laser.bmp", True)
-        self.rect.midtop = startpos
-        
-    def update( self):
-         
-        if self.rect.bottom >= SCREEN_HEIGHT:
-            self.kill()
-        else:
-            if puntos > 200:
-                self.rect.move_ip(random.randint(-(puntos-200)/30 ,(puntos-200)/30),4+(puntos/100)) #Si no, seguimos subiendo
-            else:
-                self.rect.move_ip(0,4+(puntos/100))
+
+class Minion( Champion ): # TODO
+    pass
+
+class MinionAttack( ChampionAttack ): # TODO
+    pass
 
 def load_image(name, colorkey = False):    
     fullname = os.path.join(DATA, name)
@@ -122,16 +106,10 @@ def load_SoundFile(name):
     return sound
  
 def main():
-    global puntos
-    temp = "0,0"
+    running = True # If False the game ends.
+    temp = "0,0" # Borrar
     puntos = 0
-    running = True
-    attack_speed = 1.0
-    attack_misiles = 2
-    global retardo
-    retardo = 150 
-    global SCREEN_WIDTH 
-    global SCREEN_HEIGHT
+    misile_number = 2
     
     #Starting Things
     random.seed()
@@ -152,7 +130,6 @@ def main():
     championSprite.add(champion)
     championAttackSprites = pygame.sprite.RenderClear()
     minionSprites = pygame.sprite.RenderClear()
-    global minionAttackSprites
     minionAttackSprites = pygame.sprite.RenderClear()
 
     #Control Stuff
@@ -163,51 +140,18 @@ def main():
         # Events
         for event in pygame.event.get():
             if event.type == QUIT:
-                running = False # Game End
+                running = False
             elif event.type == MOUSEBUTTONDOWN:
                 if event.button == 3:
                     temp = str(event.pos)
-                    ataque_base(attack_misiles)
+                    champion.getCursor(event.pos)
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    running = False # Se acaba el juego
-                elif event.key == K_LEFT:
-                    champion.x_velocity = -4
-                elif event.key == K_RIGHT:
-                    champion.x_velocity = 4
-                elif event.key == K_UP:
-                    champion.y_velocity = -4
-                elif event.key == K_DOWN:
-                    champion.y_velocity = 4
+                    running = False
                 elif event.key == K_SPACE:
-                    ataque_base(attack_misiles)
-            elif event.type == KEYUP:
-                if event.key == K_LEFT:
-                    champion.x_velocity = 0
-                elif event.key == K_RIGHT:
-                    champion.x_velocity = 0
-                elif event.key == K_UP:
-                    champion.y_velocity = 0
-                elif event.key == K_DOWN:
-                    champion.y_velocity = 0
-
-        #ataque base
-        if retardo < 150.0+(attack_speed-1.1)*100  :
-            retardo += attack_speed
-        else:
-            retardo = 150.0+(attack_speed-1.1)*100      
-        
-        def ataque_base(attack_misiles):
-            global retardo
-            if retardo >= 50.0:
-                for i in range(attack_misiles):
-                    if attack_misiles >= 2:
-                        championAttackSprites.add(ChampionAttack(champion.rect.centerx -attack_misiles*6 + 15*i, champion.rect.centery -30))
-                    else:
-                        championAttackSprites.add(ChampionAttack(champion.rect.centerx, champion.rect.centery -30))
-                championFX.play()
-                retardo -= 50.0
-                
+                    champion.attack(misile_number,championAttackSprites)
+                    championFX.play()
+                          
         # Updating Sprites
         championSprite.update()
         championAttackSprites.update()
@@ -220,10 +164,10 @@ def main():
             puntos = puntos + 1
         for hit in pygame.sprite.groupcollide( championSprite, minionAttackSprites, 1, 1):
             explodeFX.play()
-            running = False # Se acaba el juego
+            running = False
         for hit in pygame.sprite.groupcollide( championSprite, minionSprites, 1, 1):
             explodeFX.play()
-            running = False # Se acaba el juego
+            running = False
         for hit in pygame.sprite.groupcollide( championAttackSprites, minionAttackSprites, 1, 1):
             pass
                 
@@ -234,8 +178,8 @@ def main():
         championSprite.clear( screen, background_image )        
 
         # Text Print
-        fonte = pygame.font.Font(None, 55)
-        text = fonte.render(_("Mouse:") + temp + _(" | Kills: ") + str(puntos), 1,(255,255,255,0))
+        font = pygame.font.Font(None, 55)
+        text = font.render(_("Mouse:") + temp + _(" | Kills: ") + str(puntos), 1,(255,255,255,0))
         screen.blit(background_image, (0,0))
         screen.blit(text, (200,10))
         
