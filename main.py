@@ -3,6 +3,7 @@
 
 # Modules
 import random, os, pygame
+import language # Internalization
 from pygame.locals import *
 
 # Constants
@@ -98,7 +99,7 @@ def load_image(name, colorkey = False):
     fullname = os.path.join(DATA, name)
     try: image = pygame.image.load(fullname)
     except pygame.error, message:
-        print 'The image could not be loaded: ', fullname
+        print _('The image could not be loaded: '), fullname
         raise SystemExit, message  
     image = image.convert()
     if(colorkey): 
@@ -116,7 +117,7 @@ def load_SoundFile(name):
     try:
         sound = pygame.mixer.Sound(fullname)
     except pygame.error, message:
-        print "The sound wasn't unable to load:", fullname
+        print _("The sound wasn't unable to load:"), fullname
         raise SystemExit, message
     return sound
  
@@ -125,7 +126,6 @@ def main():
     temp = "0,0"
     puntos = 0
     running = True
-    live = 0 
     attack_speed = 1.0
     attack_misiles = 2
     global retardo
@@ -138,7 +138,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), HWSURFACE|DOUBLEBUF)
     pygame.display.set_caption( "OpenMoba" )
-    background_image, background_rect = load_image("background.bmp")
+    background_image, background_rect = load_image("background.png")
     screen.blit(background_image, (0,0))
     
     # Loading sounds
@@ -196,6 +196,7 @@ def main():
             retardo += attack_speed
         else:
             retardo = 150.0+(attack_speed-1.1)*100      
+        
         def ataque_base(attack_misiles):
             global retardo
             if retardo >= 50.0:
@@ -215,20 +216,16 @@ def main():
 
         # Collisions
         for hit in pygame.sprite.groupcollide( minionSprites, championAttackSprites, 1, 1):
-            explode1FX.play()
+            explodeFX.play()
             puntos = puntos + 1
-            if semen < max_semen:
-                if semen > max_semen - 1 : semen = max_semen -1
-                semen = semen + 1
         for hit in pygame.sprite.groupcollide( championSprite, minionAttackSprites, 1, 1):
-            explode1FX.play()
+            explodeFX.play()
             running = False # Se acaba el juego
         for hit in pygame.sprite.groupcollide( championSprite, minionSprites, 1, 1):
-            explode1FX.play()
+            explodeFX.play()
             running = False # Se acaba el juego
         for hit in pygame.sprite.groupcollide( championAttackSprites, minionAttackSprites, 1, 1):
-            if semen < max_semen:
-                semen = semen + 0.2
+            pass
                 
         # Cleaning
         minionAttackSprites.clear( screen, background_image )
@@ -238,11 +235,9 @@ def main():
 
         # Text Print
         fonte = pygame.font.Font(None, 55)
-        text = fonte.render(temp + "  " + str(puntos), 1,(255,255,255,0))
-        text2 = fonte.render(str("A"), 1,(255,255,255,0))
-        text3 = fonte.render(str("¡A!"), 1,(255,255,255,0))
+        text = fonte.render(_("Mouse:") + temp + _(" | Kills: ") + str(puntos), 1,(255,255,255,0))
         screen.blit(background_image, (0,0))
-        screen.blit(text, (560,20))
+        screen.blit(text, (200,10))
         
         # Draw
         minionAttackSprites.draw( screen )
