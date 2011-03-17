@@ -5,6 +5,7 @@ and may not be redestributed without written permission.*/
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
+#include "Champion.h"
 
 //Screen attributes
 const int SCREEN_WIDTH = 640;
@@ -15,15 +16,15 @@ const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 20;
 
 //The dot dimensions
-const int DOT_WIDTH = 20;
-const int DOT_HEIGHT = 20;
+const int DOT_WIDTH = 23;
+const int DOT_HEIGHT = 38;
 
 //The dimensions of the level
 const int LEVEL_WIDTH = 1280;
 const int LEVEL_HEIGHT = 960;
 
 //The surfaces
-SDL_Surface *dot = NULL;
+SDL_Surface *champion = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
@@ -32,33 +33,6 @@ SDL_Event event;
 
 //The camera
 SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-
-//The dot
-class Dot
-{
-    private:
-    //The X and Y offsets of the dot
-    int x, y;
-
-    //The velocity of the dot
-    int xVel, yVel;
-
-    public:
-    //Initializes the variables
-    Dot();
-
-    //Takes key presses and adjusts the dot's velocity
-    void handle_input();
-
-    //Moves the dot
-    void move();
-
-    //Shows the dot on the screen
-    void show();
-
-    //Sets the camera over the dot
-    void set_camera();
-};
 
 //The timer
 class Timer
@@ -107,7 +81,7 @@ SDL_Surface *load_image( std::string filename )
     if( loadedImage != NULL )
     {
         //Create an optimized surface
-        optimizedImage = SDL_DisplayFormat( loadedImage );
+        optimizedImage = SDL_DisplayFormatAlpha( loadedImage );
 
         //Free the old surface
         SDL_FreeSurface( loadedImage );
@@ -155,7 +129,7 @@ bool init()
     }
 
     //Set the window caption
-    SDL_WM_SetCaption( "Move the Dot", NULL );
+    SDL_WM_SetCaption( "OpenMoba", NULL );
 
     //If everything initialized fine
     return true;
@@ -164,13 +138,13 @@ bool init()
 bool load_files()
 {
     //Load the dot image
-    dot = load_image( "img/dot.bmp" );
+    champion = load_image( "img/champion.png" );
 
     //Load the background
     background = load_image( "img/bg.png" );
 
     //If there was a problem in loading the dot
-    if( dot == NULL )
+    if( champion == NULL )
     {
         return false;
     }
@@ -188,104 +162,11 @@ bool load_files()
 void clean_up()
 {
     //Free the surfaces
-    SDL_FreeSurface( dot );
+    SDL_FreeSurface( champion );
     SDL_FreeSurface( background );
 
     //Quit SDL
     SDL_Quit();
-}
-
-Dot::Dot()
-{
-    //Initialize the offsets
-    x = 0;
-    y = 0;
-
-    //Initialize the velocity
-    xVel = 0;
-    yVel = 0;
-}
-
-void Dot::handle_input()
-{
-    //If a key was pressed
-    if( event.type == SDL_KEYDOWN )
-    {
-        //Adjust the velocity
-        switch( event.key.keysym.sym )
-        {
-            case SDLK_UP: yVel -= DOT_HEIGHT / 2; break;
-            case SDLK_DOWN: yVel += DOT_HEIGHT / 2; break;
-            case SDLK_LEFT: xVel -= DOT_WIDTH / 2; break;
-            case SDLK_RIGHT: xVel += DOT_WIDTH / 2; break;
-        }
-    }
-    //If a key was released
-    else if( event.type == SDL_KEYUP )
-    {
-        //Adjust the velocity
-        switch( event.key.keysym.sym )
-        {
-            case SDLK_UP: yVel += DOT_HEIGHT / 2; break;
-            case SDLK_DOWN: yVel -= DOT_HEIGHT / 2; break;
-            case SDLK_LEFT: xVel += DOT_WIDTH / 2; break;
-            case SDLK_RIGHT: xVel -= DOT_WIDTH / 2; break;
-        }
-    }
-}
-
-void Dot::move()
-{
-    //Move the dot left or right
-    x += xVel;
-
-    //If the dot went too far to the left or right
-    if( ( x < 0 ) || ( x + DOT_WIDTH > LEVEL_WIDTH ) )
-    {
-        //move back
-        x -= xVel;
-    }
-
-    //Move the dot up or down
-    y += yVel;
-
-    //If the dot went too far up or down
-    if( ( y < 0 ) || ( y + DOT_HEIGHT > LEVEL_HEIGHT ) )
-    {
-        //move back
-        y -= yVel;
-    }
-}
-
-void Dot::show()
-{
-    //Show the dot
-    apply_surface( x - camera.x, y - camera.y, dot, screen );
-}
-
-void Dot::set_camera()
-{
-    //Center the camera over the dot
-    camera.x = ( x + DOT_WIDTH / 2 ) - SCREEN_WIDTH / 2;
-    camera.y = ( y + DOT_HEIGHT / 2 ) - SCREEN_HEIGHT / 2;
-
-    //Keep the camera in bounds.
-    if( camera.x < 0 )
-    {
-        camera.x = 0;
-    }
-    if( camera.y < 0 )
-    {
-        camera.y = 0;
-    }
-    if( camera.x > LEVEL_WIDTH - camera.w )
-    {
-        camera.x = LEVEL_WIDTH - camera.w;
-    }
-    if( camera.y > LEVEL_HEIGHT - camera.h )
-    {
-        camera.y = LEVEL_HEIGHT - camera.h;
-    }
 }
 
 Timer::Timer()
@@ -385,7 +266,7 @@ int main( int argc, char* args[] )
     bool quit = false;
 
     //The dot
-    Dot myDot;
+    Champion mychamp(DOT_WIDTH,DOT_HEIGHT);
 
     //The frame rate regulator
     Timer fps;
@@ -412,7 +293,7 @@ int main( int argc, char* args[] )
         while( SDL_PollEvent( &event ) )
         {
             //Handle events for the dot
-            myDot.handle_input();
+            mychamp.handle_input(event);
 
             //If the user has Xed out the window
             if( event.type == SDL_QUIT )
@@ -423,16 +304,16 @@ int main( int argc, char* args[] )
         }
 
         //Move the dot
-        myDot.move();
+        mychamp.move();
 
         //Set the camera
-        myDot.set_camera();
+        mychamp.set_camera(camera,LEVEL_HEIGHT,LEVEL_WIDTH);
 
         //Show the background
         apply_surface( 0, 0, background, screen, &camera );
 
-        //Show the dot on the screen
-        myDot.show();
+        //Show the dot on the scrSDL_Rect& *cameraeen
+        mychamp.show(camera, champion, screen);
 
         //Update the screen
         if( SDL_Flip( screen ) == -1 )

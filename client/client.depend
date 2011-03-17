@@ -4,10 +4,11 @@
 	"SDL/SDL_image.h"
 	<string>
 
-1299767666 source:/home/haitike/src/OpenMoba/client/main.cpp
+1300327699 source:/home/haitike/src/OpenMoba/client/main.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_image.h"
 	<string>
+	"Champion.h"
 
 1295775028 source:/home/haitike/src/OpenMoba/client/tools.cpp
 	<string>
@@ -17,6 +18,13 @@
 
 1295775480 /home/haitike/src/OpenMoba/client/tools.h
 	<string>
+	"SDL/SDL.h"
+	"SDL/SDL_image.h"
+
+1300328288 source:/home/haitike/src/OpenMoba/client/Champion.cpp
+	"Champion.h"
+
+1300328292 /home/haitike/src/OpenMoba/client/Champion.h
 	"SDL/SDL.h"
 	"SDL/SDL_image.h"
 
