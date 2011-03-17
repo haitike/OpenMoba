@@ -1,6 +1,4 @@
 #include "Champion.h"
-#include <iostream>
-using namespace std;
 
 Champion::~Champion()
 {

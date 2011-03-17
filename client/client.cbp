@@ -38,6 +38,8 @@
 		</Linker>
 		<Unit filename="Champion.cpp" />
 		<Unit filename="Champion.h" />
+		<Unit filename="Timer.cpp" />
+		<Unit filename="Timer.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
