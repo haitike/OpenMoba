@@ -9,9 +9,9 @@ class Champion
         Champion(int height_ , int width_);
         virtual ~Champion();
         void handle_input(SDL_Event event);
-        void move();
+        void move(int level_height, int level_width);
         void show(SDL_Rect& camera, SDL_Surface* champion, SDL_Surface* screen);
-        void set_camera(SDL_Rect& camera, int level_height, int level_width);
+        void set_camera(SDL_Rect& camera, int level_height, int level_width, int screen_height, int screen_width);
     protected:
     private:
         int x, y;

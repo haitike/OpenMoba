@@ -166,10 +166,10 @@ int main( int argc, char* args[] )
         }
 
         //Move the dot
-        mychamp.move();
+        mychamp.move(LEVEL_HEIGHT,LEVEL_WIDTH);
 
         //Set the camera
-        mychamp.set_camera(camera,LEVEL_HEIGHT,LEVEL_WIDTH);
+        mychamp.set_camera(camera,LEVEL_HEIGHT,LEVEL_WIDTH,SCREEN_HEIGHT,SCREEN_WIDTH);
 
         //Show the background
         apply_surface( 0, 0, background, screen, &camera );

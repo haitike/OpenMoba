@@ -1,4 +1,6 @@
 #include "Champion.h"
+#include <iostream>
+using namespace std;
 
 Champion::~Champion()
 {
@@ -42,16 +44,16 @@ void Champion::handle_input(SDL_Event event)
     }
 }
 
-void Champion::move()
+void Champion::move(int level_height, int level_width)
 {
     x += xVel;
 
-    if( ( x < 0 ) || ( x + width > width ) )
+    if( ( x < 0 ) || ( x + width > level_width ) )
         x -= xVel;
 
     y += yVel;
 
-    if( ( y < 0 ) || ( y + height > height ) )
+    if( ( y < 0 ) || ( y + height > level_height ) )
         y -= yVel;
 }
 
@@ -68,10 +70,10 @@ void Champion::show(SDL_Rect& camera, SDL_Surface* champion, SDL_Surface* screen
     //apply_surface( x - camera.x, y - camera.y, champion, screen );
 }
 
-void Champion::set_camera(SDL_Rect& camera, int level_height, int level_width)
+void Champion::set_camera(SDL_Rect& camera, int level_height, int level_width, int screen_height, int screen_width)
 {
-    camera.x = ( x + width / 2 ) - width / 2;
-    camera.y = ( y + height / 2 ) - height / 2;
+    camera.x = ( x + width / 2 ) - screen_width / 2;
+    camera.y = ( y + height / 2 ) - screen_height / 2;
 
     if( camera.x < 0 )
         camera.x = 0;
