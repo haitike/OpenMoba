@@ -1,70 +1,23 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2011)
-and may not be redestributed without written permission.*/
-
-//The headers
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
 #include "Champion.h"
+#include "Timer.h"
 
-//Screen attributes
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
-
-//The frame rate
 const int FRAMES_PER_SECOND = 20;
-
-//The dot dimensions
-const int DOT_WIDTH = 23;
-const int DOT_HEIGHT = 38;
-
-//The dimensions of the level
+const int CHAMPION_WIDTH = 23;
+const int CHAMPION_HEIGHT = 38;
 const int LEVEL_WIDTH = 1280;
 const int LEVEL_HEIGHT = 960;
 
-//The surfaces
 SDL_Surface *champion = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
-
-//The event structure
 SDL_Event event;
-
-//The camera
 SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-
-//The timer
-class Timer
-{
-    private:
-    //The clock time when the timer started
-    int startTicks;
-
-    //The ticks stored when the timer was paused
-    int pausedTicks;
-
-    //The timer status
-    bool paused;
-    bool started;
-
-    public:
-    //Initializes variables
-    Timer();
-
-    //The various clock actions
-    void start();
-    void stop();
-    void pause();
-    void unpause();
-
-    //Gets the timer's time
-    int get_ticks();
-
-    //Checks the status of the timer
-    bool is_started();
-    bool is_paused();
-};
 
 SDL_Surface *load_image( std::string filename )
 {
@@ -169,104 +122,13 @@ void clean_up()
     SDL_Quit();
 }
 
-Timer::Timer()
-{
-    //Initialize the variables
-    startTicks = 0;
-    pausedTicks = 0;
-    paused = false;
-    started = false;
-}
-
-void Timer::start()
-{
-    //Start the timer
-    started = true;
-
-    //Unpause the timer
-    paused = false;
-
-    //Get the current clock time
-    startTicks = SDL_GetTicks();
-}
-
-void Timer::stop()
-{
-    //Stop the timer
-    started = false;
-
-    //Unpause the timer
-    paused = false;
-}
-
-void Timer::pause()
-{
-    //If the timer is running and isn't already paused
-    if( ( started == true ) && ( paused == false ) )
-    {
-        //Pause the timer
-        paused = true;
-
-        //Calculate the paused ticks
-        pausedTicks = SDL_GetTicks() - startTicks;
-    }
-}
-
-void Timer::unpause()
-{
-    //If the timer is paused
-    if( paused == true )
-    {
-        //Unpause the timer
-        paused = false;
-
-        //Reset the starting ticks
-        startTicks = SDL_GetTicks() - pausedTicks;
-
-        //Reset the paused ticks
-        pausedTicks = 0;
-    }
-}
-
-int Timer::get_ticks()
-{
-    //If the timer is running
-    if( started == true )
-    {
-        //If the timer is paused
-        if( paused == true )
-        {
-            //Return the number of ticks when the timer was paused
-            return pausedTicks;
-        }
-        else
-        {
-            //Return the current time minus the start time
-            return SDL_GetTicks() - startTicks;
-        }
-    }
-
-    //If the timer isn't running
-    return 0;
-}
-
-bool Timer::is_started()
-{
-    return started;
-}
-
-bool Timer::is_paused()
-{
-    return paused;
-}
-
 int main( int argc, char* args[] )
 {
     //Quit flag
     bool quit = false;
 
     //The dot
-    Champion mychamp(DOT_WIDTH,DOT_HEIGHT);
+    Champion mychamp(CHAMPION_WIDTH,CHAMPION_HEIGHT);
 
     //The frame rate regulator
     Timer fps;
@@ -327,8 +189,6 @@ int main( int argc, char* args[] )
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
         }
     }
-
-    //Clean up
     clean_up();
 
     return 0;

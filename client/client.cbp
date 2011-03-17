@@ -36,6 +36,8 @@
 		<Linker>
 			<Add option="`sdl-config --libs` -lSDL_image" />
 		</Linker>
+		<Unit filename="Champion.cpp" />
+		<Unit filename="Champion.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
