@@ -18,8 +18,9 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
-#include "Champion.h"
-#include "Timer.h"
+#include "champion.h"
+#include "timer.h"
+#include "functions.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -36,7 +37,7 @@ SDL_Surface *screen = NULL;
 SDL_Event event;
 SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-SDL_Surface *load_image( std::string filename )
+/*SDL_Surface *load_image( std::string filename )
 {
     SDL_Surface* loadedImage = NULL;
     SDL_Surface* optimizedImage = NULL;
@@ -49,14 +50,6 @@ SDL_Surface *load_image( std::string filename )
             SDL_SetColorKey( optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB( optimizedImage->format, 0, 0xFF, 0xFF ) );
     }
     return optimizedImage;
-}
-
-void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL )
-{
-    SDL_Rect offset;
-    offset.x = x;
-    offset.y = y;
-    SDL_BlitSurface( source, clip, destination, &offset );
 }
 
 bool init()
@@ -89,7 +82,7 @@ void clean_up()
     SDL_FreeSurface( champion );
     SDL_FreeSurface( background );
     SDL_Quit();
-}
+}*/
 
 int main( int argc, char* args[] )
 {
@@ -100,7 +93,7 @@ int main( int argc, char* args[] )
     if( init() == false )
         return 1;
 
-    if( load_files() == false )
+    if( load_files(champion, background) == false )
         return 1;
 
     while( quit == false )
@@ -123,7 +116,7 @@ int main( int argc, char* args[] )
         if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
     }
-    clean_up();
+    clean_up(champion, background);
 
     return 0;
 }

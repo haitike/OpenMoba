@@ -15,7 +15,7 @@
 // along with OpenMoba. If not, see <http://www.gnu.org/licenses/>.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "Champion.h"
+#include "champion.h"
 
 Champion::~Champion()
 {

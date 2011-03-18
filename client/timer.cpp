@@ -15,7 +15,7 @@
 // along with OpenMoba. If not, see <http://www.gnu.org/licenses/>.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "Timer.h"
+#include "timer.h"
 #include "SDL/SDL.h"
 
 Timer::Timer()
