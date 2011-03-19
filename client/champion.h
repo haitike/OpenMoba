@@ -23,12 +23,12 @@
 class Champion
 {
     public:
-        Champion(int height_ , int width_);
+        Champion();
         virtual ~Champion();
-        void handle_input(SDL_Event event);
-        void move(int level_height, int level_width);
-        void show(SDL_Rect& camera, SDL_Surface* champion, SDL_Surface* screen);
-        void set_camera(SDL_Rect& camera, int level_height, int level_width, int screen_height, int screen_width);
+        void handle_input();
+        void move();
+        void show();
+        void set_camera();
     protected:
     private:
         int x, y;

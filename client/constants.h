@@ -22,8 +22,8 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 20;
-const int CHAMPION_WIDTH = 35;
-const int CHAMPION_HEIGHT = 23;
+const int CHAMPION_WIDTH = 23;
+const int CHAMPION_HEIGHT = 38;
 const int LEVEL_WIDTH = 1280;
 const int LEVEL_HEIGHT = 960;
 

@@ -28,7 +28,7 @@
 int main( int argc, char* args[] )
 {
     bool quit = false;
-    Champion mychamp(CHAMPION_WIDTH,CHAMPION_HEIGHT);
+    Champion mychamp;
     Timer fps;
 
     if( init() == false )
@@ -42,14 +42,14 @@ int main( int argc, char* args[] )
         fps.start();
         while( SDL_PollEvent( &event ) )
         {
-            mychamp.handle_input(event);
+            mychamp.handle_input();
             if( event.type == SDL_QUIT )
                 quit = true;
         }
-        mychamp.move(LEVEL_HEIGHT,LEVEL_WIDTH);
-        mychamp.set_camera(camera,LEVEL_HEIGHT,LEVEL_WIDTH,SCREEN_HEIGHT,SCREEN_WIDTH);
+        mychamp.move();
+        mychamp.set_camera();
         apply_surface( 0, 0, background, screen, &camera );
-        mychamp.show(camera, champion, screen);
+        mychamp.show();
 
         if( SDL_Flip( screen ) == -1 )
             return 1;
