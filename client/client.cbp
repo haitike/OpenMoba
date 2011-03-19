@@ -36,11 +36,13 @@
 		<Linker>
 			<Add option="`sdl-config --libs` -lSDL_image" />
 		</Linker>
-		<Unit filename="Champion.cpp" />
-		<Unit filename="Champion.h" />
-		<Unit filename="Timer.cpp" />
-		<Unit filename="Timer.h" />
+		<Unit filename="champion.cpp" />
+		<Unit filename="champion.h" />
+		<Unit filename="functions.cpp" />
+		<Unit filename="functions.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="timer.cpp" />
+		<Unit filename="timer.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

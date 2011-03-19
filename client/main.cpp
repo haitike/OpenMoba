@@ -18,71 +18,12 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
+
+#include "constants.h"
+#include "globals.h"
+#include "functions.h"
 #include "champion.h"
 #include "timer.h"
-#include "functions.h"
-
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-const int SCREEN_BPP = 32;
-const int FRAMES_PER_SECOND = 20;
-const int CHAMPION_WIDTH = 35;
-const int CHAMPION_HEIGHT = 23;
-const int LEVEL_WIDTH = 1280;
-const int LEVEL_HEIGHT = 960;
-
-SDL_Surface *champion = NULL;
-SDL_Surface *background = NULL;
-SDL_Surface *screen = NULL;
-SDL_Event event;
-SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-
-/*SDL_Surface *load_image( std::string filename )
-{
-    SDL_Surface* loadedImage = NULL;
-    SDL_Surface* optimizedImage = NULL;
-    loadedImage = IMG_Load( filename.c_str() );
-    if( loadedImage != NULL )
-    {
-        optimizedImage = SDL_DisplayFormatAlpha( loadedImage );
-        SDL_FreeSurface( loadedImage );
-        if( optimizedImage != NULL )
-            SDL_SetColorKey( optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB( optimizedImage->format, 0, 0xFF, 0xFF ) );
-    }
-    return optimizedImage;
-}
-
-bool init()
-{
-    if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
-        return false;
-    screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
-    if( screen == NULL )
-        return false;
-    SDL_WM_SetCaption( "OpenMoba", NULL );
-
-    return true;
-}
-
-bool load_files()
-{
-    champion = load_image( "img/champion.png" );
-    background = load_image( "img/bg.png" );
-
-    if( champion == NULL )
-        return false;
-
-    if( background == NULL )
-        return false;
-    return true;
-}
-
-void clean_up()
-{
-    SDL_FreeSurface( champion );
-    SDL_FreeSurface( background );
-    SDL_Quit();
-}*/
 
 int main( int argc, char* args[] )
 {
@@ -93,7 +34,7 @@ int main( int argc, char* args[] )
     if( init() == false )
         return 1;
 
-    if( load_files(champion, background) == false )
+    if( load_files() == false )
         return 1;
 
     while( quit == false )
@@ -116,7 +57,7 @@ int main( int argc, char* args[] )
         if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
     }
-    clean_up(champion, background);
+    clean_up();
 
     return 0;
 }

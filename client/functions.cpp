@@ -59,7 +59,7 @@ bool init()
     return true;
 }
 
-bool load_files(SDL_Surface* champion, SDL_Surface* background)
+bool load_files()
 {
     champion = load_image( "img/champion.png" );
     background = load_image( "img/bg.png" );
@@ -72,7 +72,7 @@ bool load_files(SDL_Surface* champion, SDL_Surface* background)
     return true;
 }
 
-void clean_up(SDL_Surface* champion, SDL_Surface* background)
+void clean_up()
 {
     SDL_FreeSurface( champion );
     SDL_FreeSurface( background );

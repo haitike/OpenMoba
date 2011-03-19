@@ -4,13 +4,15 @@
 	"SDL/SDL_image.h"
 	<string>
 
-1300486077 source:/home/haitike/src/OpenMoba/client/main.cpp
+1300534506 source:/home/haitike/src/OpenMoba/client/main.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_image.h"
 	<string>
+	"constants.h"
+	"globals.h"
+	"functions.h"
 	"champion.h"
 	"timer.h"
-	"functions.h"
 
 1295775028 source:/home/haitike/src/OpenMoba/client/tools.cpp
 	<string>
@@ -36,7 +38,7 @@
 
 1300447971 /home/haitike/src/OpenMoba/client/Timer.h
 
-1300486092 source:/home/haitike/src/OpenMoba/client/functions.cpp
+1300534545 source:/home/haitike/src/OpenMoba/client/functions.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_image.h"
 	<string>
@@ -44,17 +46,18 @@
 	"functions.h"
 	"globals.h"
 
-1177101664 /home/haitike/src/OpenMoba/client/constants.h
+1300534327 /home/haitike/src/OpenMoba/client/constants.h
 
-1300486220 /home/haitike/src/OpenMoba/client/functions.h
+1300534545 /home/haitike/src/OpenMoba/client/functions.h
 	"SDL/SDL.h"
 	"SDL/SDL_image.h"
 	<string>
 
-1179524018 /home/haitike/src/OpenMoba/client/globals.h
+1300534494 /home/haitike/src/OpenMoba/client/globals.h
 	"SDL/SDL.h"
+	"constants.h"
 
-1179523754 source:/home/haitike/src/OpenMoba/client/globals.cpp
+1300533962 source:/home/haitike/src/OpenMoba/client/globals.cpp
 	"SDL/SDL.h"
 	"globals.h"
 
