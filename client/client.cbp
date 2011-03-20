@@ -38,8 +38,11 @@
 		</Linker>
 		<Unit filename="champion.cpp" />
 		<Unit filename="champion.h" />
+		<Unit filename="constants.h" />
 		<Unit filename="functions.cpp" />
 		<Unit filename="functions.h" />
+		<Unit filename="globals.cpp" />
+		<Unit filename="globals.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="timer.cpp" />
 		<Unit filename="timer.h" />
