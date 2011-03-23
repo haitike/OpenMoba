@@ -15,12 +15,16 @@
 // along with OpenMoba. If not, see <http://www.gnu.org/licenses/>.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "SDL/SDL.h"
-#include "globals.h"
+#ifndef GLOBALS_H
+#define GLOBALS_H
 
-SDL_Surface *champion = NULL;
-SDL_Surface *background = NULL;
-SDL_Surface *screen = NULL;
-SDL_Event event;
-SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-TCPsocket socket;
+#include "SDL/SDL.h"
+#include "constants.h"
+
+extern SDL_Surface *champion;
+extern SDL_Surface *background;
+extern SDL_Surface *screen;
+extern SDL_Event event;
+extern SDL_Rect camera;
+
+#endif

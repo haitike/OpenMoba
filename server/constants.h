@@ -15,12 +15,16 @@
 // along with OpenMoba. If not, see <http://www.gnu.org/licenses/>.
 /////////////////////////////////////////////////////////////////////////////
 
-#include "SDL/SDL.h"
-#include "globals.h"
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
-SDL_Surface *champion = NULL;
-SDL_Surface *background = NULL;
-SDL_Surface *screen = NULL;
-SDL_Event event;
-SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-TCPsocket socket;
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+const int SCREEN_BPP = 32;
+const int FRAMES_PER_SECOND = 20;
+const int CHAMPION_WIDTH = 23;
+const int CHAMPION_HEIGHT = 38;
+const int LEVEL_WIDTH = 1280;
+const int LEVEL_HEIGHT = 960;
+
+#endif

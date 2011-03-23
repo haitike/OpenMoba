@@ -23,4 +23,3 @@ SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 SDL_Event event;
 SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-TCPsocket socket;

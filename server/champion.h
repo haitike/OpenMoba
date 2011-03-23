@@ -15,23 +15,26 @@
 // along with OpenMoba. If not, see <http://www.gnu.org/licenses/>.
 /////////////////////////////////////////////////////////////////////////////
 
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
-
+#ifndef CHAMPION_H
+#define CHAMPION_H
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-#include <SDL/SDL_net.h>
-#include <string>
 
-#include "iostream"
-using namespace std;
+class Champion
+{
+    public:
+        Champion();
+        virtual ~Champion();
+        void handle_input();
+        void move();
+        void show();
+        void set_camera();
+    protected:
+    private:
+        int x, y;
+        int xVel, yVel;
+        int height, width;
 
-SDL_Surface *load_image( std::string filename );
-void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL );
-bool init();
-bool load_files();
-void clean_up();
-bool connect(char* adress, char* port);
-void disconnect();
+};
 
-#endif
+#endif // CHAMPION_H

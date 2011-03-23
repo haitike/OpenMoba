@@ -15,6 +15,8 @@
 // along with OpenMoba. If not, see <http://www.gnu.org/licenses/>.
 /////////////////////////////////////////////////////////////////////////////
 
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
 #include <string>
 #include "constants.h"
 #include "functions.h"
@@ -45,15 +47,8 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination,
 
 bool init()
 {
-    if (SDLNet_Init() < 0)
-    {
-        cerr << "SDLNet_Init(): " << SDLNet_GetError() << endl ;
-        return false;
-    }
-
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
         return false;
-
     screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
     if( screen == NULL )
     {
@@ -82,37 +77,4 @@ void clean_up()
     SDL_FreeSurface( champion );
     SDL_FreeSurface( background );
     SDL_Quit();
-}
-
-bool connect(char* adress, char* port)
-{
-
-    IPaddress ip;
-
-    if (SDLNet_ResolveHost(&ip, adress, atoi(port)) < 0)
-    {
-        cerr << "SDLNet_ResolveHost(): "<< SDLNet_GetError() << endl;
-        return false;
-    }
-
-    if (!(socket = SDLNet_TCP_Open(&ip)))
-    {
-        cout << "error";
-        cerr << "SDLNet_TCP_Open: " << SDLNet_GetError() << endl;
-        return false;
-    }
-
-    if (SDLNet_TCP_Send(socket, "Connected", strlen("Connected")+1) < strlen("Connected")+1) {
-
-	    cerr << "SDLNet_TCP_Send: " << SDLNet_GetError() << endl;;
-	    exit(1);
-	}
-
-    return true;
-}
-
-void disconnect()
-{
-    SDLNet_TCP_Close(socket);
-    SDLNet_Quit();
 }

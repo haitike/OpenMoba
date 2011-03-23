@@ -19,6 +19,7 @@
 #define GLOBALS_H
 
 #include "SDL/SDL.h"
+#include "SDL/SDL_net.h"
 #include "constants.h"
 
 extern SDL_Surface *champion;
@@ -26,5 +27,6 @@ extern SDL_Surface *background;
 extern SDL_Surface *screen;
 extern SDL_Event event;
 extern SDL_Rect camera;
+extern TCPsocket socket;
 
 #endif

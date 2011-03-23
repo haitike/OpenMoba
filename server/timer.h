@@ -15,23 +15,28 @@
 // along with OpenMoba. If not, see <http://www.gnu.org/licenses/>.
 /////////////////////////////////////////////////////////////////////////////
 
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
+#ifndef TIMER_H
+#define TIMER_H
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_image.h"
-#include <SDL/SDL_net.h>
-#include <string>
 
-#include "iostream"
-using namespace std;
+class Timer
+{
+    private:
+        int startTicks;
+        int pausedTicks;
+        bool paused;
+        bool started;
 
-SDL_Surface *load_image( std::string filename );
-void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL );
-bool init();
-bool load_files();
-void clean_up();
-bool connect(char* adress, char* port);
-void disconnect();
+    public:
+        Timer();
+        virtual ~Timer();
+        void start();
+        void stop();
+        void pause();
+        void unpause();
+        int get_ticks();
+        bool is_started();
+        bool is_paused();
+};
 
-#endif
+#endif // TIMER_H

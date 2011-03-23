@@ -17,9 +17,7 @@
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-#include <SDL/SDL_net.h>
 #include <string>
-#include "iostream"
 
 #include "constants.h"
 #include "globals.h"
@@ -27,24 +25,13 @@
 #include "champion.h"
 #include "timer.h"
 
-using namespace std;
-
 int main( int argc, char* args[] )
 {
-    if (argc < 3)
-    {
-		cerr << "You must indicate the IP and Port to connect " << endl << args[0] << " server port" << endl;
-        exit(1);
-    }
-
     bool quit = false;
     Champion mychamp;
     Timer fps;
 
     if( init() == false )
-        return 1;
-
-    if( connect(args[1],args[2]) == false)
         return 1;
 
     if( load_files() == false )
@@ -71,7 +58,6 @@ int main( int argc, char* args[] )
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
     }
     clean_up();
-    disconnect();
 
     return 0;
 }
